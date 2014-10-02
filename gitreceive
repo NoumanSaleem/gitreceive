@@ -109,10 +109,7 @@ trigger_receiver() {
   # oldrev, newrev, refname are a feature of the way in which Git executes the pre-receive hook.
   # See https://www.kernel.org/pub/software/scm/git/docs/githooks.html
   while read oldrev newrev refname; do
-    # Only run this script for the master branch. You can remove this
-    # if block if you wish to run it for others as well.
-    [[ "$refname" == "refs/heads/master" ]] && \
-      git archive "$newrev" | "$home_dir/receiver" "$repo" "$newrev" "$user" "$fingerprint"
+    git archive "$newrev" | "$home_dir/receiver" "$repo" "$newrev" "$user" "$fingerprint" "$refname"
   done
 }
 
